@@ -1,0 +1,19 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { route } from '../../i18n/routes';
+import { AUTHOR_NAME } from '../../data/site-config';
+const lang = 'en';
+---
+<PageLayout title="Editorial policy of Appliance kWh: ENERGY STAR and EIA data" description="How Appliance kWh writes its pages: model sizes and kWh from the ENERGY STAR lists, prices from the EIA, each dated, no figure without a source and no store link." lang={lang} noindex={true} breadcrumbs={[{ label: 'Editorial policy' }]} showAuthor={false}>
+  <article class="prose prose-slate max-w-none prose-headings:font-serif">
+    <h1>Editorial policy</h1>
+    <h2>Where the figures come from</h2>
+    <p>A model size, a capacity or a yearly kWh enters the site only from the ENERGY STAR certified product lists that the EPA publishes as open data. An electricity price enters only from the Energy Information Administration. Test rules (hours of use behind an annual figure) come from the Department of Energy test procedures in the Code of Federal Regulations. Maker and store pages are read to see what buyers ask, never to take a number.</p>
+    <h2>How pages are written</h2>
+    <p>No figure is typed into the text. The lists and the prices live in data files rebuilt by a script, and every page computes its counts, medians and costs from them when the site is built, with the same engine as the tools. A measurement the lists do not publish (refrigerator depth, dishwasher height) is not filled in by a guess: the page says it is missing.</p>
+    <h2>Money</h2>
+    <p>{AUTHOR_NAME} receives nothing from appliance makers, stores or energy companies and links to none of them as a sponsor. There is no advertising today; if some is added it will be labeled and never placed above a tool.</p>
+    <h2>Updates and corrections</h2>
+    <p>Nothing on the site updates by itself. Each page shows the date of the lists and the month of the prices it uses; when they are reread, the dates move. A reported error is checked against the official file and, once fixed, moves the date. Write through the <a href={route('contact', lang)}>contact page</a>; the filters are on the <a href={route('method', lang)}>method page</a>.</p>
+  </article>
+</PageLayout>

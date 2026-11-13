@@ -1,0 +1,50 @@
+---
+/** Method: the files, how each figure is built, a worked example, the limits. Figures from the kit. */
+import PageLayout from '../../layouts/PageLayout.astro';
+import { route } from '../../i18n/routes';
+import { KIT as K } from '../../lib/kit';
+import { src, table } from '../../lib/helpers';
+import { VALUE } from '../../content/home';
+import { breadcrumbSchema, webPageSchema } from '../../lib/seo';
+const lang = 'en';
+const path = route('method', lang);
+const title = 'Appliance kWh Method 2026: ENERGY STAR Lists and EIA Prices';
+const description = 'Appliance kWh method for 2026: which ENERGY STAR models are counted, how a fit is tested, how kWh becomes dollars with EIA state prices, and every limit.';
+const E = K.E;
+const rows = [
+  ['Refrigerators', K.num(E.FRIDGES.length), 'height, width, capacity', `${K.num(E.FRIDGE_EXCLUDED)} rows with implausible sizes, ${K.num(E.COOLERS)} wine coolers and freezers`],
+  ['Clothes washers', K.num(E.WASHERS.length), `width; height and depth for ${K.num(E.WASHERS.filter(E.hasDims).length)}`, 'none'],
+  ['Clothes dryers', K.num(E.DRYERS.length), 'height, width, depth, drum', 'rows without sizes or type'],
+  ['Dishwashers', K.num(E.DISHES.length), 'width, depth, place settings', `${K.num(E.DISH_EXCLUDED)} rows with sizes outside 15 to 30 inches (entered in centimeters)`],
+  ['Room air conditioners', K.num(E.ACS.length), 'height, width, depth, BTU', 'none'],
+  ['Freezers', K.num(E.FREEZERS.length), 'capacity only', 'none'],
+  ['Dehumidifiers', K.num(E.DEHUS.length), 'pints a day', 'none'],
+];
+const ex = E.fridges({ style: 'full', maxW: 30, maxH: 67 });
+const exK = K.s(ex.map((f) => f.kwh));
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={[webPageSchema({ name: 'How the figures are built', description, path, lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: 'How the figures are built', path }])]} breadcrumbs={[{ label: 'How the figures are built' }]}>
+  <article class="prose prose-slate max-w-none prose-headings:font-serif">
+    <h1>How the appliance figures are built</h1>
+    <p><strong>Every count on the site is a count of real models on the ENERGY STAR certified lists of {K.day(K.UPDATED)}, kept when the maker lists them for the United States. Every running cost is the model's yearly kWh from the Department of Energy test times the average home price of electricity in the state, from the EIA, for {K.MONTH}.</strong></p>
+    <p>{VALUE}</p>
+    <h2>1. The model lists</h2>
+    <p>The EPA publishes each ENERGY STAR list as open data. The site reads seven of them through the public interface of the portal on {K.day(K.RETRIEVED)} and keeps only the rows whose markets include the United States. Rows whose sizes are empty or outside a plausible range in inches are left out of the size tools and counted below. The data is in the public domain (<Fragment set:html={src('epa_license', 'EPA data license')} />).</p>
+    <Fragment set:html={table(['List', 'Models kept', 'Sizes published', 'Left out'], rows, `ENERGY STAR certified product lists, read on ${K.day(K.RETRIEVED)}.`, ['l', 'r', 'l', 'l'])} />
+    <h2>2. Will it fit</h2>
+    <p>A model fits when each published size is at or below the size you enter, minus the gap you ask to keep. Nothing is rounded. Width classes ("30 inch") take the models wider than one inch below the nominal size and up to half an inch above it. Where the list gives no depth (refrigerators) or no height (dishwashers), the tools say so instead of guessing.</p>
+    <h2>3. From kWh to dollars</h2>
+    <p>The yearly kWh is the figure the maker certified under the test procedures of <Fragment set:html={src('cfr_430', '10 CFR part 430')} />. Cost a year = kWh × price ÷ 100, with the price in cents per kWh from <Fragment set:html={src('eia_56a', 'EIA table 5.6.A')} /> ({K.MONTH}, and {K.PREV} for the comparison). For a room air conditioner the cost per hour divides the yearly figure by the 750 cooling hours of <Fragment set:html={src('cfr_430_f', 'appendix F')} />; for a dehumidifier by the 1,095 hours of appendix X1. Average watts = kWh a year ÷ 8,760 hours × 1,000.</p>
+    <h2>4. A worked example</h2>
+    <p>A 30 by 67 inch opening: {K.num(ex.length)} full-size certified refrigerators are at most 30 inches wide and 67 inches high. Their median yearly use is {K.num(exK.med)} kWh. At {K.num(K.US.now, 2)} cents, the U.S. average for {K.MONTH}, that is {K.usd(K.cost(exK.med))} a year, or {K.usd2(K.cost(exK.med) / 12)} a month.</p>
+    <h2>5. Limits</h2>
+    <ul>
+      <li>Only certified models are counted; the many models that meet only the federal minimum are not.</li>
+      <li>The test is a laboratory measure: room temperature, settings and use change the real figure.</li>
+      <li>A gas dryer's energy is mostly gas, so no electricity cost is shown for it.</li>
+      <li>The price is a state average for homes; time-of-use and tiered plans differ.</li>
+      <li>The lists are dated; a model added after {K.day(K.UPDATED)} is not counted until the next reading.</li>
+    </ul>
+    <p>Corrections: <a href={route('contact', lang)}>contact page</a>.</p>
+  </article>
+</PageLayout>

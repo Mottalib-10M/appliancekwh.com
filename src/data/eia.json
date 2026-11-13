@@ -1,0 +1,216 @@
+{
+"title": "by State, August 2026 and 2025 (Cents per Kilowatthour)",
+"month": "August 2026",
+"prev": "August 2025",
+"retrieved": "2026-11-13",
+"states": {
+"Connecticut": {
+"now": 24.51,
+"year_ago": 30.17
+},
+"Maine": {
+"now": 32.11,
+"year_ago": 28.14
+},
+"Massachusetts": {
+"now": 30.48,
+"year_ago": 30.55
+},
+"New Hampshire": {
+"now": 27.64,
+"year_ago": 24.44
+},
+"Rhode Island": {
+"now": 28.18,
+"year_ago": 26.53
+},
+"Vermont": {
+"now": 23.84,
+"year_ago": 22.1
+},
+"New Jersey": {
+"now": 24.61,
+"year_ago": 24.7
+},
+"New York": {
+"now": 28.65,
+"year_ago": 26.64
+},
+"Pennsylvania": {
+"now": 21.77,
+"year_ago": 19.93
+},
+"Illinois": {
+"now": 19.32,
+"year_ago": 18.03
+},
+"Indiana": {
+"now": 17.02,
+"year_ago": 16.21
+},
+"Michigan": {
+"now": 22.99,
+"year_ago": 20.73
+},
+"Ohio": {
+"now": 19.38,
+"year_ago": 17.55
+},
+"Wisconsin": {
+"now": 19.41,
+"year_ago": 18.44
+},
+"Iowa": {
+"now": 17.06,
+"year_ago": 15.48
+},
+"Kansas": {
+"now": 15.47,
+"year_ago": 14.65
+},
+"Minnesota": {
+"now": 17.2,
+"year_ago": 16.89
+},
+"Missouri": {
+"now": 16.02,
+"year_ago": 15.32
+},
+"Nebraska": {
+"now": 13.54,
+"year_ago": 12.8
+},
+"North Dakota": {
+"now": 13.31,
+"year_ago": 12.97
+},
+"South Dakota": {
+"now": 15.15,
+"year_ago": 13.9
+},
+"Delaware": {
+"now": 18.7,
+"year_ago": 16.85
+},
+"District of Columbia": {
+"now": 25.98,
+"year_ago": 23.18
+},
+"Florida": {
+"now": 14.99,
+"year_ago": 15.33
+},
+"Georgia": {
+"now": 15.9,
+"year_ago": 15.55
+},
+"Maryland": {
+"now": 21.4,
+"year_ago": 19.89
+},
+"North Carolina": {
+"now": 14.95,
+"year_ago": 14.59
+},
+"South Carolina": {
+"now": 15.76,
+"year_ago": 15.16
+},
+"Virginia": {
+"now": 17.64,
+"year_ago": 15.85
+},
+"West Virginia": {
+"now": 16.31,
+"year_ago": 15.62
+},
+"Alabama": {
+"now": 16.33,
+"year_ago": 16.26
+},
+"Kentucky": {
+"now": 13.8,
+"year_ago": 13.1
+},
+"Mississippi": {
+"now": 14.43,
+"year_ago": 13.61
+},
+"Tennessee": {
+"now": 13.42,
+"year_ago": 13.09
+},
+"Arkansas": {
+"now": 14.37,
+"year_ago": 13.33
+},
+"Louisiana": {
+"now": 12.87,
+"year_ago": 12.55
+},
+"Oklahoma": {
+"now": 14.82,
+"year_ago": 14.42
+},
+"Texas": {
+"now": 15.91,
+"year_ago": 15.4
+},
+"Arizona": {
+"now": 15.05,
+"year_ago": 15.09
+},
+"Colorado": {
+"now": 17.17,
+"year_ago": 16.21
+},
+"Idaho": {
+"now": 13.37,
+"year_ago": 12.08
+},
+"Montana": {
+"now": 15.57,
+"year_ago": 14.29
+},
+"Nevada": {
+"now": 12.72,
+"year_ago": 12.54
+},
+"New Mexico": {
+"now": 16.51,
+"year_ago": 15.98
+},
+"Utah": {
+"now": 13.31,
+"year_ago": 13.62
+},
+"Wyoming": {
+"now": 14.43,
+"year_ago": 14.33
+},
+"California": {
+"now": 29.75,
+"year_ago": 30.92
+},
+"Oregon": {
+"now": 15.92,
+"year_ago": 15.85
+},
+"Washington": {
+"now": 14.63,
+"year_ago": 13.65
+},
+"Alaska": {
+"now": 29.41,
+"year_ago": 27.79
+},
+"Hawaii": {
+"now": 47.18,
+"year_ago": 38.53
+},
+"U.S. Total": {
+"now": 18.16,
+"year_ago": 17.57
+}
+}
+}

@@ -1,0 +1,24 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { route } from '../../i18n/routes';
+import { CONTACT_EMAIL } from '../../data/site-config';
+import { contactPageSchema } from '../../lib/seo';
+const lang = 'en';
+const path = route('contact', lang);
+const description = 'Write to Appliance kWh about a model size, a kWh figure or a state price that looks wrong. E-mail only: nothing sold, nothing passed on to a store or a maker.';
+---
+<PageLayout title="Contact Appliance kWh: report a size or a price that moved" description={description} lang={lang} noindex={true} jsonLd={[contactPageSchema({ name: 'Contact', description, path, lang })]} breadcrumbs={[{ label: 'Contact' }]} showAuthor={false}>
+  <article class="prose prose-slate max-w-none prose-headings:font-serif">
+    <h1>Contact</h1>
+    <p>By e-mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. There is no form and no phone line, and nothing you write is passed on to a store, a maker or anyone else.</p>
+    <h2>What helps us most</h2>
+    <ul>
+      <li>A model whose size on the ENERGY STAR list differs from the maker's sheet: give the model number and both figures.</li>
+      <li>A newer EIA month than the one shown on the pages.</li>
+      <li>A question the tools cannot answer yet, such as a size combination you could not test.</li>
+      <li>Embedding the tool on a kitchen, housing or library page: the code is on the <a href={route('widget', lang)}>embed page</a>.</li>
+    </ul>
+    <h2>What we cannot do</h2>
+    <p>We do not sell appliances, recommend a store or a brand, or confirm that a given model fits your kitchen. The maker's installation sheet and your own tape measure decide that.</p>
+  </article>
+</PageLayout>

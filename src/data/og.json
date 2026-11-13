@@ -1,0 +1,13 @@
+{
+ "accent": "#1E5B47",
+ "symbol": "kWh",
+ "variants": [
+  {
+   "file": "og-en.png",
+   "title": "Appliance size and kWh\nby certified model",
+   "subtitle": "Fridges · washers · dryers · dishwashers · window AC · cost by state",
+   "badge": "ENERGY STAR lists, 12 Nov 2026 · EIA prices, Aug 2026",
+   "brand": "Appliance kWh"
+  }
+ ]
+}

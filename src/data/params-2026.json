@@ -1,0 +1,30 @@
+{
+  "_lisezmoi": "Every rule the engine applies, with the document it was read in (RECETTE §4). Model data: src/data/appliances.json; prices: src/data/eia.json, both rebuilt by scripts/build-data.py. Each value below was read on the source on retrieved_at.",
+  "year": 2026,
+  "retrieved_at": "2026-11-13",
+  "valid_from": "2026-11-13",
+  "valid_to": "2026-12-31",
+  "test": {
+    "acCoolingHours": 750,
+    "dehuHours": 1095,
+    "washerCyclesJ": 234,
+    "washerCyclesJ2": 295,
+    "dishCyclesC1": 215,
+    "dishCyclesC2": 184
+  },
+  "sources": {
+    "es_fridge": { "url": "https://data.energystar.gov/d/p5st-her9", "label": { "en": "ENERGY STAR (EPA), Certified Residential Refrigerators: height, width, capacity and annual kWh of every certified model" } },
+    "es_washer": { "url": "https://data.energystar.gov/d/bghd-e2wd", "label": { "en": "ENERGY STAR (EPA), Certified Residential Clothes Washers: dimensions, capacity, annual kWh and water" } },
+    "es_dryer": { "url": "https://data.energystar.gov/d/t9u7-4d2j", "label": { "en": "ENERGY STAR (EPA), Certified Residential Clothes Dryers: dimensions, drum capacity and estimated annual kWh" } },
+    "es_dish": { "url": "https://data.energystar.gov/d/q8py-6w3f", "label": { "en": "ENERGY STAR (EPA), Certified Residential Dishwashers: width, depth, place settings and annual kWh" } },
+    "es_ac": { "url": "https://data.energystar.gov/d/5xn2-dv4h", "label": { "en": "ENERGY STAR (EPA), Certified Room Air Conditioners: cooling capacity, dimensions and annual kWh" } },
+    "es_freezer": { "url": "https://data.energystar.gov/d/8t9c-g3tn", "label": { "en": "ENERGY STAR (EPA), Certified Residential Freezers: capacity and annual kWh" } },
+    "es_dehu": { "url": "https://data.energystar.gov/d/mgiu-hu4z", "label": { "en": "ENERGY STAR (EPA), Certified Dehumidifiers: pints a day and annual kWh" } },
+    "es_finder": { "url": "https://www.energystar.gov/productfinder/product/certified-residential-refrigerators/results", "label": { "en": "ENERGY STAR Product Finder, certified residential refrigerators (the same list, searchable)" } },
+    "eia_56a": { "url": "https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a", "label": { "en": "U.S. Energy Information Administration, Electric Power Monthly, table 5.6.A: average price of electricity by state, August 2026 and August 2025" } },
+    "eia_reuse": { "url": "https://www.eia.gov/about/copyrights_reuse.php", "label": { "en": "EIA, copyrights and reuse: public domain" } },
+    "epa_license": { "url": "https://edg.epa.gov/EPA_Data_License.html", "label": { "en": "EPA data license: data produced by the EPA is in the public domain" } },
+    "cfr_430": { "url": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-B", "label": { "en": "10 CFR part 430, subpart B: the Department of Energy test procedures behind every annual kWh figure" } },
+    "cfr_430_f": { "url": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-B/appendix-Appendix%20F%20to%20Subpart%20B%20of%20Part%20430", "label": { "en": "10 CFR 430, appendix F to subpart B: room air conditioners, 750 hours a year in cooling mode" } }
+  }
+}
