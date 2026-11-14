@@ -41,3 +41,26 @@ describe('width pages', () => {
     expect(spec.run(v(spec)).example).toContain('30.5 × 67');
   });
 });
+
+/** Naive testers 2026-11-14, round 2: the 30 inch page said "364 fit" and "narrower models that also fit 364" while the
+ *  home page said 728. Both now show the same total and the same split. */
+describe('total of every width', () => {
+  const v = (spec: ReturnType<typeof getTool>) => Object.fromEntries(spec.inputs.map((i) => [i.id, i.def]));
+  const row = (out: ReturnType<ReturnType<typeof getTool>['run']>) => out.rows.find((r) => r[0] === 'Every width that fits')?.[1];
+  it('home and 30 inch page give the same total, split the same way', () => {
+    const home = getTool('fridgeFit'), page = getTool('fridgeFit', { w: 30.5, h: 67, cls: 30 });
+    const a = home.run(v(home)), b = page.run({ ...v(page), w: 30 });
+    const all = E.fridges({ style: 'full', maxW: 30, maxH: 67 });
+    const in30 = all.filter((f) => f.w > 29).length;
+    const expected = `${formatNumber(all.length, 0)} in all: ${formatNumber(in30, 0)} are 30 inch, ${formatNumber(all.length - in30, 0)} are narrower`;
+    expect(row(a)).toBe(expected);
+    expect(row(b)).toBe(expected);
+    expect(b.value).toBe(formatNumber(in30, 0));
+    expect(HOME.answer).toContain(`(${formatNumber(in30, 0)} of 30 inches, ${formatNumber(all.length - in30, 0)} narrower)`);
+  });
+  it('the list can be ordered by yearly cost, cheapest first', () => {
+    const spec = getTool('fridgeFit');
+    const rows = spec.run({ ...v(spec), sort: 'cost' }).table!.rows.map((r) => Number(r[3].replace(/,/g, '')));
+    expect(rows).toEqual([...rows].sort((x, y) => x - y));
+  });
+});

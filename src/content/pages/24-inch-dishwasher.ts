@@ -25,10 +25,10 @@ export default definePage({
   body: (h) => `
 <h2>24 inch dishwasher depth, counted</h2>
 <p>With so many models in one width, depth is the useful filter. The table counts the certified 24 inch models at each depth limit, so you can see how many remain if your cabinets are shallow or your counter is deep.</p>
-${h.table(['Depth limit', 'Models that fit', 'Median place settings', 'Median kWh a year'], [22, 23, 23.5, 24, 24.5, 25].map((x) => { const a = L.filter((y) => y.d <= x); return [K.inch(x), K.num(a.length), a.length ? K.num(K.s(a.map((y) => y.place)).med) : 'none', a.length ? K.num(K.s(a.map((y) => y.kwh)).med) : 'none']; }), `Certified dishwashers wider than 22.5 and up to 24.5 inches, ENERGY STAR list of ${K.day(K.UPDATED)}.`, ['l', 'r', 'r', 'r'])}
+${h.table(['Depth limit', 'Models that fit', 'Typical place settings', 'Typical kWh a year'], [22, 23, 23.5, 24, 24.5, 25].map((x) => { const a = L.filter((y) => y.d <= x); return [K.inch(x), K.num(a.length), a.length ? K.num(K.s(a.map((y) => y.place)).med) : 'none', a.length ? K.num(K.s(a.map((y) => y.kwh)).med) : 'none']; }), `Certified dishwashers wider than 22.5 and up to 24.5 inches, ENERGY STAR list of ${K.day(K.UPDATED)}.`, ['l', 'r', 'r', 'r'])}
 <h2>Brands on the list</h2>
 <p>The brands with the most certified 24 inch models are ${top.map((x) => `${x.b} (${K.num(x.n)})`).join(', ')}. A count of certified models says how much choice a brand offers in this size, not which one is better; many entries are variants of the same machine in different colors or panels. The tool lists the models with the most place settings among those that fit.</p>
-${h.mini('dish', { t: '24 inch dishwashers for your cabinet depth', p: ['d', 'st'], d: { w: 24, d: 24, cls: 24 } })}
+${h.mini('dish', { t: 'If the space is only 18 inches wide: 18 inch models for your depth', p: ['d', 'st'], d: { w: 18, d: 24, cls: 18 } })}
 <h2>Height and the counter</h2>
 <p>The list has no height for dishwashers. A standard built-in model fits under a standard counter with its feet adjusted; the model sheet gives the minimum and maximum. In a kitchen with a thick stone counter, a raised floor or a counter lower than usual, measure the opening and check that range.</p>
 <h2>Water, energy and cost</h2>

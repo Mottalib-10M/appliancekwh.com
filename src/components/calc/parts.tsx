@@ -27,16 +27,17 @@ export function Rows({ rows, total }: { rows: Array<[string, string, number?]>; 
 }
 
 /** Two to four options filling the whole frame (RECETTE §10.3). */
-export function Choice<T extends string>({ id, label, value, options, onChange }: { id: string; label: string; value: T; options: Array<{ value: T; label: string }>; onChange: (v: T) => void }) {
+export function Choice<T extends string>({ id, label, value, options, onChange, help }: { id: string; label: string; value: T; options: Array<{ value: T; label: string }>; onChange: (v: T) => void; help?: string }) {
   return (
     <div className="grid grid-rows-subgrid row-span-3 content-start gap-y-0">
       <span id={`${id}-l`} className="mb-1 block text-sm font-medium text-navy-700">{label}</span>
-      <div role="group" aria-labelledby={`${id}-l`} className="grid h-12 grid-flow-col auto-cols-fr overflow-hidden rounded-lg border border-navy-300">
+      <div role="group" aria-labelledby={`${id}-l`} aria-describedby={help ? `${id}-help` : undefined} className="grid h-12 grid-flow-col auto-cols-fr overflow-hidden rounded-lg border border-navy-300">
         {options.map((o) => (
           <button key={o.value} type="button" aria-pressed={value === o.value} onClick={() => onChange(o.value)}
             className={`h-full px-2 text-sm font-medium ${value === o.value ? 'bg-accent-700 text-white' : 'bg-white text-navy-700 hover:bg-navy-50'}`}>{o.label}</button>
         ))}
       </div>
+      {help && <p id={`${id}-help`} className="mt-1 text-xs text-navy-500">{help}</p>}
     </div>
   );
 }

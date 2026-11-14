@@ -25,10 +25,10 @@ export default definePage({
   body: (h) => `
 <h2>Washing machine electricity use by type</h2>
 <p>The table gives the median yearly kWh and water of each type, and the cost of that electricity at the U.S. average price. It counts every certified washer, including the many that publish only their width.</p>
-${h.table(['Type', 'Models', 'Median kWh a year', 'Range', 'Median water a year', 'Cost a year'], [['Front load', F, kf], ['Top load', T, kt]].map(([l, a, s]) => { const x = s as ReturnType<typeof K.s>; return [l as string, K.num((a as typeof F).length), K.num(x.med), `${K.num(x.min)} to ${K.num(x.max)}`, `${K.num(K.s((a as typeof F).map((y) => y.water)).med)} gal`, K.usd(K.cost(x.med))]; }), `Certified clothes washers, ENERGY STAR list of ${K.day(K.UPDATED)}; EIA U.S. average, ${K.MONTH}.`, ['l', 'r', 'r', 'r', 'r', 'r'])}
+${h.table(['Type', 'Models', 'Typical kWh a year', 'Range', 'Typical water a year', 'Cost a year'], [['Front load', F, kf], ['Top load', T, kt]].map(([l, a, s]) => { const x = s as ReturnType<typeof K.s>; return [l as string, K.num((a as typeof F).length), K.num(x.med), `${K.num(x.min)} to ${K.num(x.max)}`, `${K.num(K.s((a as typeof F).map((y) => y.water)).med)} gal`, K.usd(K.cost(x.med))]; }), `Certified clothes washers, ENERGY STAR list of ${K.day(K.UPDATED)}; EIA U.S. average, ${K.MONTH}.`, ['l', 'r', 'r', 'r', 'r', 'r'])}
 <h2>Where the energy goes</h2>
 <p>The federal test procedure (${h.src('cfr_430', '10 CFR 430, subpart B')}) adds the machine's own electricity to the energy needed to heat the water it draws, and both end up in the yearly kWh. That is why a washer that uses less water scores less energy. Washing in cold water cuts the heating part at home; the yearly figure on the label assumes the mix of temperatures of the test. A higher spin speed takes more water out of the clothes, which saves energy in the dryer, a much bigger user.</p>
-${h.mini('washer', { t: 'Median energy of the washers that fit your space', p: ['w', 'st'], d: { w: 28, h: 40, d: 32 } })}
+${h.mini('washer', { t: 'Typical energy of the washers that fit your space', p: ['w', 'st'], d: { w: 28, h: 40, d: 32 } })}
 <h2>The dryer is the larger bill</h2>
 <p>The median certified electric dryer uses ${K.num(K.s(E.dryers('electric').map((x) => x.kwh)).med)} kWh a year according to its list, several times a washer. If you compare laundry costs, start there: the ${h.a('dryer-electricity-use', 'dryer electricity page')} compares vented and ventless models.</p>
 <h2>Cost by state</h2>

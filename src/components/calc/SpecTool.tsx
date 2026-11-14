@@ -66,7 +66,7 @@ export default function SpecTool({ kind, arg, methodHref, idPrefix = 't' }: Prop
   const field = (i: Input) => {
     const id = `${idPrefix}-${i.id}`;
     const cls = i.wide ? 'sm:col-span-2' : '';
-    if (i.kind === 'choice') return <div key={i.id} className={`grid grid-rows-subgrid row-span-3 ${cls}`}><Choice id={id} label={i.label} value={String(v[i.id])} options={i.options} onChange={set(i.id)} /></div>;
+    if (i.kind === 'choice') return <div key={i.id} className={`grid grid-rows-subgrid row-span-3 ${cls}`}><Choice id={id} label={i.label} value={String(v[i.id])} options={i.options} onChange={set(i.id)} help={i.help} /></div>;
     if (i.kind === 'select') return <SelectField key={i.id} id={id} label={i.label} value={String(v[i.id])} onChange={set(i.id)} options={i.dyn ? i.dyn(v) : i.options} help={i.help} className={cls} />;
     return <NumberField key={i.id} id={id} label={i.label} value={Number(v[i.id])} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} className={cls} />;
   };
