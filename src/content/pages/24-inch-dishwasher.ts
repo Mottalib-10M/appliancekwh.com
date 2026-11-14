@@ -28,14 +28,14 @@ export default definePage({
 ${h.table(['Depth limit', 'Models that fit', 'Median place settings', 'Median kWh a year'], [22, 23, 23.5, 24, 24.5, 25].map((x) => { const a = L.filter((y) => y.d <= x); return [K.inch(x), K.num(a.length), a.length ? K.num(K.s(a.map((y) => y.place)).med) : 'none', a.length ? K.num(K.s(a.map((y) => y.kwh)).med) : 'none']; }), `Certified dishwashers wider than 22.5 and up to 24.5 inches, ENERGY STAR list of ${K.day(K.UPDATED)}.`, ['l', 'r', 'r', 'r'])}
 <h2>Brands on the list</h2>
 <p>The brands with the most certified 24 inch models are ${top.map((x) => `${x.b} (${K.num(x.n)})`).join(', ')}. A count of certified models says how much choice a brand offers in this size, not which one is better; many entries are variants of the same machine in different colors or panels. The tool lists the models with the most place settings among those that fit.</p>
-${h.mini('dish', { t: '24 inch dishwashers for your cabinet depth', p: ['d', 'st'], d: { w: 24, d: 24 } })}
+${h.mini('dish', { t: '24 inch dishwashers for your cabinet depth', p: ['d', 'st'], d: { w: 24, d: 24, cls: 24 } })}
 <h2>Height and the counter</h2>
 <p>The list has no height for dishwashers. A standard built-in model fits under a standard counter with its feet adjusted; the model sheet gives the minimum and maximum. In a kitchen with a thick stone counter, a raised floor or a counter lower than usual, measure the opening and check that range.</p>
 <h2>Water, energy and cost</h2>
 <p>Certified 24 inch models use a median ${K.dec(g.med)} gallons of water a cycle. Energy covers the heating of the water inside the machine and the drying. At the prices of ${K.MONTH}, the median model's ${K.num(k.med)} kWh a year cost ${K.usd(K.cost(k.med, K.st('new-jersey')))} in New Jersey and ${K.usd(K.cost(k.med, K.st('idaho')))} in Idaho. For a narrow kitchen, see the ${h.a('18-inch-dishwasher', '18 inch dishwasher')}; for all sizes, the ${h.a('dishwasher-dimensions', 'dishwasher dimensions page')}.</p>
 <p>Compare models that fit your depth by place settings first, then by the kWh column: the gaps in energy between certified 24 inch models are small.</p>
 `,
-  tool: 'dish', toolArg: { w: 24, d: 24 },
+  tool: 'dish', toolArg: { w: 24, d: 24, cls: 24 },
   related: ['18-inch-dishwasher', 'dishwasher-dimensions', 'dishwasher-electricity-use', 'counter-depth-refrigerator-dimensions'],
   sources: ['es_dish', 'eia_56a'],
 });

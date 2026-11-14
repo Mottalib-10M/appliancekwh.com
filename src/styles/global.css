@@ -120,3 +120,15 @@ p[id$="-help"]:not([role="status"]), [data-fixe], [data-actuellement], [aria-liv
   [aria-live] table tr:has(> td + td) { border-top: 1px solid var(--color-navy-200); padding: .3rem 0; }
   [aria-live] table tr > td + td { flex: 1 1 100%; padding-top: .1rem; text-align: left; font-weight: 600; }
 }
+
+/* Sections repliées (Fold.astro, lib/fold.ts) : les styles .fold manquaient, le ▶ du navigateur restait seul sur
+   une ligne et le titre passait dessous (testeurs naïfs du 2026-11-14, trois sur trois). Titre et signe sur une
+   seule ligne, signe à droite comme la FAQ. */
+@layer components {
+  .fold { border-top: 1px solid var(--color-navy-200); }
+  .fold > summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .9rem 0; }
+  .fold > summary::-webkit-details-marker { display: none; }
+  .fold > summary::after { content: '+'; flex: none; font-size: 1.4rem; line-height: 1; color: var(--color-navy-600); }
+  .fold[open] > summary::after { content: '\2013'; }
+  .fold > summary > .fold-h { display: inline; margin: 0; }
+}

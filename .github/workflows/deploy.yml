@@ -1,17 +1,19 @@
-name: deploy
+name: ENERGY STAR and EIA update and deploy
 
-# Publie le site sur GitHub Pages à chaque push sur main, et après chaque passe de update-data
-# (un push fait avec GITHUB_TOKEN ne relance pas les workflows, d'où workflow_run).
+# Every Monday at 14:00 UTC: scripts/build-data.py --fetch reads the ENERGY STAR certified product lists
+# (data.energystar.gov) and EIA Electric Power Monthly table 5.6.A (state residential price, published once a
+# month, late in the month), rewrites src/data/appliances.json and eia.json, then the site is rebuilt and published.
+# Ce workflow est le seul qui publie le site : push sur main, tâche planifiée et lancement manuel.
+# Modèle : canadaprocessingtimes.com/.github/workflows/update-data.yml (RECETTE, sites à données datées).
 on:
+  schedule:
+    - cron: "0 14 * * 1"
   push:
     branches: [main]
-  workflow_run:
-    workflows: [update-data]
-    types: [completed]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -21,18 +23,53 @@ concurrency:
 
 jobs:
   build:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci --legacy-peer-deps
-      - run: npm run build
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python packages
+        if: github.event_name != 'push'
+        run: pip install openpyxl
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Read ENERGY STAR and EIA (scheduled and manual runs)
+        if: github.event_name != 'push'
+        run: npm run update-data
+
+      - name: Tests
+        run: npx vitest run
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit the new readings
+        id: commit
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/appliances.json src/data/eia.json
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; else
+            git commit -m "ENERGY STAR and EIA read on $(date -u +%F)" && git push && echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -47,7 +84,9 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
       - name: Checkout (script IndexNow)
+        if: github.event_name != 'schedule' || needs.build.outputs.changed == 'true'
         uses: actions/checkout@v4
       - name: Ping IndexNow
+        if: github.event_name != 'schedule' || needs.build.outputs.changed == 'true'
         continue-on-error: true
         run: bash scripts/indexnow.sh https://appliancekwh.com

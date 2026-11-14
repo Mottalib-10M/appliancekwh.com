@@ -27,13 +27,13 @@ export default definePage({
 ${h.table(['', '18 inch class', '24 inch class'], [['Certified models', K.num(L.length), K.num(W.length)], ['Median width', K.inch(w.med), K.inch(K.s(W.map((x) => x.w)).med)], ['Median depth', K.inch(d.med), K.inch(K.s(W.map((x) => x.d)).med)], ['Median place settings', K.num(p.med), K.num(pw)], ['Median kWh a year', K.num(k.med), K.num(kw)], ['Water per cycle', `${K.dec(g.med)} gal`, `${K.dec(gw)} gal`], ['kWh a year per place setting', K.dec(perSet(k.med, p.med)), K.dec(perSet(kw, pw))]], `ENERGY STAR certified dishwashers, list of ${K.day(K.UPDATED)}.`, ['l', 'r', 'r'])}
 <h2>When the narrow model is the right choice</h2>
 <p>An 18 inch dishwasher makes sense when the kitchen has no 24 inch space to give: a galley, a studio, a kitchen where a 24 inch base cabinet is more useful as storage. It also suits a household that runs it rarely with few dishes. A family that would run a narrow model twice a day is better served by a 24 inch one run once, which the per-setting figure in the table shows.</p>
-${h.mini('dish', { t: 'Narrow dishwashers that fit your opening', p: ['w', 'd'], d: { w: 18, d: 24 } })}
+${h.mini('dish', { t: 'If you can free 24 inches: 24 inch models for your depth', p: ['d'], d: { w: 24, d: 24, cls: 24 } })}
 <h2>Fitting an 18 inch model</h2>
 <p>Measure the opening between the cabinet sides at the narrowest point, the depth from the wall to the front of the cabinets and the height to the underside of the counter, which the list does not give and the model sheet does. Water, drain and power usually come through the cabinet beside it. Replacing a 24 inch dishwasher with an 18 inch one leaves a six inch gap that a filler panel or a narrow pull-out cabinet can close.</p>
 <h2>Running cost</h2>
 <p>At the prices homes paid in ${K.MONTH}, the median narrow model's ${K.num(k.med)} kWh a year cost ${K.usd(K.cost(k.med, K.st('hawaii')))} in Hawaii, ${K.usd(K.cost(k.med, K.st('pennsylvania')))} in Pennsylvania and ${K.usd(K.cost(k.med, K.st('nevada')))} in Nevada. The ${h.a('dishwasher-electricity-use', 'dishwasher electricity page')} explains the yearly figure; the ${h.a('24-inch-dishwasher', '24 inch page')} lists the wider models by depth.</p>
 `,
-  tool: 'dish', toolArg: { w: 18.5, d: 24 },
+  tool: 'dish', toolArg: { w: 18, d: 24, cls: 18 },
   related: ['24-inch-dishwasher', 'dishwasher-dimensions', 'dishwasher-electricity-use', 'apartment-size-refrigerator'],
   sources: ['es_dish', 'eia_56a'],
 });
