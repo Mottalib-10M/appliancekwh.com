@@ -8,12 +8,14 @@
  */
 import * as E from './engine/appliances';
 import P from '../data/params-2026.json';
-import { usd, usd2, num, inch, typicalKwh } from './tool-specs';
+import { usd, usd2, num, inch, typicalKwh, typicalFridge, fitSets } from './tool-specs';
 import { formatDecimal } from './format';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const longDate = (iso: string) => `${MONTHS[Number(iso.slice(5, 7)) - 1]} ${Number(iso.slice(8, 10))}, ${iso.slice(0, 4)}`;
 export const KIT = {
   E, P, US: E.US, STATES: E.STATES, st: E.stateBySlug, cost: E.costYear, s: E.stats, med: E.median, typical: typicalKwh,
+  /** One definition of a typical refrigerator (median capacity and kWh) and the sets an opening takes, as in the tool. */
+  typFridge: typicalFridge, fitSets,
   MONTH: E.PRICE_MONTH, PREV: E.PRICE_PREV, UPDATED: E.DATASET_UPDATED, RETRIEVED: E.RETRIEVED,
   usd, usd2, num, inch, dec: (x: number, d = 1) => formatDecimal(x, d), day: longDate,
   /** Percent written by hand-safe rounding: 0.1234 → "12%". */

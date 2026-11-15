@@ -52,12 +52,29 @@ function distinct(list: Fridge[]): Array<{ f: Fridge; n: number }> {
 const CLASSES = [24, 28, 30, 33, 36];
 const classOf = (W: number) => [...CLASSES].reverse().find((c) => W > c - 1) ?? 0;
 /** Naive testers 2026-11-14, round 2: the 30 inch page said "364 fit" and "narrower models that also fit 364" while the
- *  home page said 728 for the same opening. One row now gives the total and its split, the same on every page. */
+ *  home page said 728 for the same opening. One row now gives the total and its split, the same on every page.
+ *  Round 3: "364 are 30 inch, 364 are narrower" read like a bug, so the second part says "the rest". */
+const inClass = (f: Fridge, c: number) => f.w > c - 1 && f.w <= c + 0.5;
 function widthSplit(anyWidth: Fridge[], c: number): [string, string] | undefined {
   if (!c) return undefined;
-  const inC = anyWidth.filter((f) => f.w > c - 1 && f.w <= c + 0.5).length, nar = anyWidth.filter((f) => f.w <= c - 1).length;
-  const wid = anyWidth.length - inC - nar;
-  return ['Every width that fits', `${num(anyWidth.length)} in all: ${num(inC)} are ${c} inch, ${num(nar)} are narrower${wid ? `, ${num(wid)} are wider than ${dim(c + 0.5)} in` : ''}`];
+  const inC = anyWidth.filter((f) => inClass(f, c)).length, wid = anyWidth.filter((f) => f.w > c + 0.5).length;
+  return ['Every width that fits', `${num(anyWidth.length)} in all, of which ${num(inC)} are ${c} inch models${wid ? `, ${num(wid)} are wider than ${dim(c + 0.5)} in` : ''} and the rest are narrower`];
+}
+/** The one definition of "typical" for a set of refrigerators: its median capacity and median yearly kWh. Naive testers
+ *  2026-11-14, round 3: the home page, the width table and the 30 inch page gave three "typical" 30 inch figures. Every
+ *  one is now computed here, and each says which models it covers. */
+export function typicalFridge(list: Fridge[], st: Parameters<typeof costYear>[1] = 'us') {
+  const kwh = median(list.map((f) => f.kwh));
+  return { n: list.length, vol: median(list.map((f) => f.vol)), kwh, cost: costYear(kwh, st) };
+}
+/** The models an opening takes: every width (`anyWidth`), those the tool counts (`fit`) and those of the opening's own
+ *  width class (`near`), on which "typical" and "lowest use" are computed. Shared by the tool and the home page text. */
+export function fitSets(W: number, H: number, style = 'full', cd: 'any' | 'yes' = 'any', cls = 0) {
+  const anyWidth = fridges({ style, cd, maxW: W, maxH: H });
+  const fit = cls ? widthClass(cls, style, { cd, maxW: Math.min(W, cls + 0.5), maxH: H }) : anyWidth;
+  const c = cls || classOf(W);
+  const near = c ? fit.filter((f) => inClass(f, c)) : [];
+  return { anyWidth, fit, c, near };
 }
 const SORTS = [{ value: 'vol', label: 'Most storage' }, { value: 'cost', label: 'Lowest yearly cost' }];
 function fridgeFitRun(v: V): ToolOut {
@@ -67,13 +84,11 @@ function fridgeFitRun(v: V): ToolOut {
   const cd = s(v, 'cd') === 'yes' ? 'yes' : 'any';
   const cls = clsOf(v);
   const all = cls ? widthClass(cls, style.value, { cd }) : fridges({ style: style.value, cd });
-  const anyWidth = fridges({ style: style.value, cd, maxW: W, maxH: H });
-  const fit = cls ? widthClass(cls, style.value, { cd, maxW: Math.min(W, cls + 0.5), maxH: H }) : anyWidth;
+  const { anyWidth, fit, c, near } = fitSets(W, H, style.value, cd, cls);
   const st = stateBySlug(s(v, 'st'));
   const what = `${cd === 'yes' ? 'counter-depth ' : ''}${noun(style.value)}`;
   const sub = cls ? `of ${num(all.length)} certified ${cls} inch ${what}` : `of ${num(all.length)} certified ${what}, every width up to yours`;
   const example = cls ? `Example for ${cls} inch models and ${dim(n(v, 'h'))} inches of height` : `Example for a ${dim(n(v, 'w'))} × ${dim(n(v, 'h'))} inch opening`;
-  const c = cls || classOf(W);
   const split = widthSplit(anyWidth, c);
   const total: Array<[string, string]> = split && anyWidth.length ? [split] : [];
   if (!fit.length) {
@@ -85,22 +100,24 @@ function fridgeFitRun(v: V): ToolOut {
       example,
     };
   }
-  const k = stats(fit.map((f) => f.kwh)), vol = stats(fit.map((f) => f.vol));
   const byCost = s(v, 'sort') === 'cost';
   const order = byCost ? (a: Fridge, b: Fridge) => a.kwh - b.kwh || b.vol - a.vol : (a: Fridge, b: Fridge) => b.vol - a.vol || a.kwh - b.kwh;
   const shown = distinct([...fit].sort(order)).slice(0, 5);
   /* Naive testers 2026-11-14, round 2: on the home page the most frugal model was an 18.5 inch unit for a 30 inch
-     opening. Without a class, the most frugal is taken among the models of the opening's own width when there are some. */
-  const near = cls || !c ? fit : fit.filter((f) => f.w > c - 1);
-  const lean = [...(near.length ? near : fit)].sort((a, b) => a.kwh - b.kwh)[0];
+     opening. Typical figures and the most frugal model are taken among the models of the opening's own width class
+     when some fit (round 3: the same set on the home page and on the width page), else among all that fit. */
+  const base = near.length ? near : fit;
+  const t = typicalFridge(base, st);
+  const who = near.length ? `Typical ${c} inch model that fits` : 'Typical model that fits';
+  const lean = [...base].sort((a, b) => a.kwh - b.kwh)[0];
   return {
     label: cls ? `Certified ${cls} inch models that fit` : 'Certified models that fit', value: num(fit.length), sub,
     rows: [
       ...total,
-      ['Typical capacity (the middle model)', `${num(vol.med, 1)} cubic feet`],
-      ['Typical energy use', `${num(k.med)} kWh a year`],
-      [`Typical running cost ${where(v)}`, `${usd(costYear(k.med, st))} a year`],
-      [!cls && c && near.length ? `Lowest use at about ${c} inches wide` : 'Lowest use among them', `${num(lean.kwh)} kWh (${lean.brand} ${lean.model}, ${inch(lean.w)} wide)`],
+      [`${who}: capacity`, `${num(t.vol, 1)} cubic feet`],
+      [`${who}: energy use`, `${num(t.kwh)} kWh a year`],
+      [`${who}: running cost ${where(v)}`, `${usd(t.cost)} a year`],
+      [near.length ? `Lowest use among the ${c} inch models` : 'Lowest use among them', `${num(lean.kwh)} kWh (${lean.brand} ${lean.model}, ${inch(lean.w)} wide)`],
     ],
     table: { caption: `${byCost ? 'The models that fit, cheapest to run first.' : 'The largest models that fit, most storage first. Set “Order of the list” to Lowest yearly cost to see the cheapest to run first.'} A * or # in a model number stands for any letter or digit, usually the color or finish.`, headers: ['Model', 'Width × height', 'Capacity', 'kWh a year', 'Cost a year'], align: ['l', 'r', 'r', 'r', 'r'],
       rows: shown.map(({ f, n: c2 }) => [`${f.brand} ${f.model}${f.ice ? ', ice maker' : ''}${c2 > 1 ? ` (${c2} versions, same size and use)` : ''}`, `${inch(f.w)} × ${inch(f.h)}`, `${num(f.vol, 1)} cu ft`, num(f.kwh), usd(costYear(f.kwh, st))]) },
