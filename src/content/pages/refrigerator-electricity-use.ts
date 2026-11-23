@@ -36,8 +36,10 @@ ${h.mini('fridgeCost', { t: 'Your refrigerator: enter the kWh on its label', p: 
 <p>The test runs the refrigerator in a room held at a fixed temperature, with the doors closed and the controls at set positions. At home, the room may be warmer, the doors open dozens of times a day, warm food goes in, and the thermostat may be colder than needed. A refrigerator in a hot garage works much harder than in a kitchen. Leave space behind it for air, keep the door gaskets clean and closing, and the real figure stays close to the label.</p>
 <h2>The price of a kWh decides the bill</h2>
 <p>The same refrigerator costs ${K.dec(HI.now / LO.now)} times more to run in the dearest state than in the cheapest. In ${K.MONTH} homes paid ${K.num(HI.now, 2)} cents per kWh in ${HI.name} and ${K.num(LO.now, 2)} cents in ${LO.name}, according to ${h.src('eia_56a', 'the EIA')}. The ${h.a('electricity-cost-by-state', 'state comparison')} lists all of them. To compare models before buying, multiply the difference in yearly kWh by your price: 100 kWh a year is worth ${K.usd(K.cost(100))} at the U.S. average. Sizes and fit are on the width pages, starting with the ${h.a('30-inch-wide-refrigerator', '30 inch class')}.</p>
+<h2>Refrigerator running cost in 2027</h2>
+<p>A refrigerator uses the same kWh in 2027 as in 2026; only the price changes. The one official 2027 figure is a forecast: the ${h.src('eia_steo', 'EIA Short-Term Energy Outlook')} of ${K.day(K.P.steo.release)} puts the U.S. home price at ${K.dec(K.P.steo.us2027, 1)}¢ per kWh for 2027, which would make the median certified full-size model cost ${K.usd((k.med * K.P.steo.us2027) / 100)} a year. Measured 2027 prices by state come from the EIA's Electric Power Monthly about two months after each month ends, so January 2027 is expected in late March 2027. The tool on this page switches to 2027 prices as soon as the EIA publishes them; the ${h.a('appliance-electricity-cost-2027', '2027 running cost page')} follows the forecast until then.</p>
 `,
   tool: 'fridgeCost',
   related: ['electricity-cost-by-state', 'freezer-electricity-use', 'mini-fridge-dimensions', '36-inch-refrigerator'],
-  sources: ['es_fridge', 'eia_56a', 'cfr_430'],
+  sources: ['es_fridge', 'eia_56a', 'cfr_430', 'eia_steo'],
 });

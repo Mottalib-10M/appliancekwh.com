@@ -35,6 +35,7 @@ export const HOME = {
     { q: 'Why do some refrigerators I see in stores not appear?', a: `The tool counts only models certified by ENERGY STAR and listed for the U.S. market. Certified models use less energy than the federal maximum, so models that only meet the minimum are not on the list. Wine coolers (${K.num(E.COOLERS)} entries) are left out, and ${K.num(E.FRIDGE_EXCLUDED)} rows with sizes outside any plausible range in inches.` },
     { q: 'How tall is a standard full-size refrigerator?', a: `On the certified list, the median full-size model is ${K.inch(K.s(full.map((f) => f.h)).med)} tall, from ${K.inch(K.s(full.map((f) => f.h)).min)} to ${K.inch(K.s(full.map((f) => f.h)).max)}. Height matters most under a cabinet: enter the height of your opening in the tool and it keeps only the models that pass, with the gap you choose.` },
     { q: 'How much space should I leave around a refrigerator?', a: 'The ENERGY STAR list does not publish clearances. The installation sheet of each model gives the air gap it needs at the top, the sides and the back, and the room the doors need to open fully. The tool lets you subtract a gap of your choice from the opening before it counts the models.' },
+    { q: 'What will the 2027 figures be?', a: `Appliance kWh does not change with the year; only the price does. The EIA forecast of ${K.day(K.P.steo.release)} puts the U.S. home price at ${K.dec(K.P.steo.us2027, 1)}¢ per kWh in 2027, against ${K.dec(K.P.steo.us2026, 1)}¢ in 2026. Measured 2027 prices by state will come from the EIA's Electric Power Monthly about two months after each month, January 2027 in late March 2027; the tools switch to them then.` },
     { q: 'How current are the figures on this site?', a: `The model lists were updated by ENERGY STAR on ${K.day(K.UPDATED)} and read on ${K.day(K.RETRIEVED)}; the electricity prices are the EIA figures for ${K.MONTH}. Nothing updates by itself: the date shown under each figure is the date of the data used.` },
   ],
   /** Right under the tool: how to measure, in three steps. */
@@ -67,6 +68,14 @@ ${h.mini('fridgeCost', { t: 'What a refrigerator of your style and size costs to
 <p>The same lists cover laundry and kitchen appliances. Clothes washers are on the list with ${K.num(E.WASHERS.length)} certified models, but most publish only their width; ${K.num(E.WASHERS.filter(E.hasDims).length)} give all three dimensions. Dryers do better: ${K.num(E.DRYERS.length)} certified models with height, width and depth. The ${h.a('washer-and-dryer-dimensions', 'washer and dryer page')} counts the models that fit a laundry space, and the ${h.a('stackable-washer-and-dryer-dimensions', 'stackable page')} matches washers with the dryer ENERGY STAR lists as their pair.</p>
 <p>Dishwashers publish width and depth but no height. The list holds ${K.num(dish24.length)} models in the 24 inch class and ${K.num(dish18.length)} in the 18 inch class: see the ${h.a('24-inch-dishwasher', '24 inch dishwasher')} and ${h.a('18-inch-dishwasher', '18 inch dishwasher')} pages.</p>
 ` },
+    { title: 'Refrigerator dimensions and running costs in 2027', id: 'y2027', html: (h: Helpers) => `
+<p>Sizes and certified kWh do not follow the calendar: the ENERGY STAR list changes whenever a maker certifies or drops a model, and this site reads it again with each update. What changes in 2027 is the price of a kWh.</p>
+<ul>
+<li>Already official: the ${h.src('eia_steo', 'EIA Short-Term Energy Outlook')} of ${K.day(K.P.steo.release)} forecasts ${K.dec(K.P.steo.us2027, 1)}¢ per kWh for homes in 2027 (U.S. average), against ${K.dec(K.P.steo.us2026, 1)}¢ in 2026. It is a forecast, revised every month; the next edition is due on December 8, 2026.</li>
+<li>Not yet published: measured 2027 prices by state. The EIA publishes them in the Electric Power Monthly about two months after each month ends, so January 2027 is expected in late March 2027.</li>
+</ul>
+<p>The tool above will price models at 2027 state prices as soon as the EIA publishes them. Until then, the ${h.a('appliance-electricity-cost-2027', '2027 running cost page')} prices five certified appliances at the forecast.</p>
+` },
     { title: 'Limits of the data', id: 'limits', html: (_h: Helpers) => `
 <ul>
 <li>Only certified models are counted. They use less energy than the federal maximum for their class, so the medians here are lower than the average of all refrigerators in American homes.</li>
@@ -76,5 +85,5 @@ ${h.mini('fridgeCost', { t: 'What a refrigerator of your style and size costs to
 </ul>
 ` },
   ],
-  sources: ['es_fridge', 'es_washer', 'es_dryer', 'es_dish', 'eia_56a', 'epa_license', 'cfr_430', 'es_finder'],
+  sources: ['es_fridge', 'es_washer', 'es_dryer', 'es_dish', 'eia_56a', 'eia_steo', 'epa_license', 'cfr_430', 'es_finder'],
 };

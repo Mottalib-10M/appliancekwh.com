@@ -32,10 +32,12 @@ ${h.mini('state', { t: 'Five appliances priced in your state', p: ['st'], d: { s
 <p>The prices are the residential averages of ${h.src('eia_56a', 'EIA table 5.6.A')}, a public statistic of the Department of Energy. They are prices of a single month and are revised in later releases. They are not updated automatically here; the month used is shown on each figure.</p>
 <h2>Each appliance in detail</h2>
 <p>The ${h.a('refrigerator-electricity-use', 'refrigerator')}, ${h.a('dryer-electricity-use', 'dryer')} and ${h.a('window-air-conditioner-electricity-use', 'window air conditioner')} pages give the yearly or hourly use of every certified model of those kinds.</p>
+<h2>Electricity cost by state in 2027</h2>
+<p>No state price for 2027 exists yet. The EIA does not forecast each state; its ${h.src('eia_steo', 'Short-Term Energy Outlook')} gives only a U.S. average, ${K.dec(K.P.steo.us2027, 1)}¢ per kWh for homes in 2027 against ${K.dec(K.P.steo.us2026, 1)}¢ in 2026 (edition of ${K.day(K.P.steo.release)}, revised every month, next edition on December 8, 2026). The Electric Power Monthly publishes each state's price about two months after the month ends: January 2027 is expected in late March 2027. This table and the tool will move to the 2027 months as soon as they are published.</p>
 <h2>Why prices differ</h2>
 <p>The state average blends many utilities, cooperatives and municipal systems, each with its own rate. The mix of power plants, the cost of the grid and state policies all weigh on it, and the EIA table reports the outcome, not the causes. Within one state, two neighbors on different utilities can pay quite different prices; the bill gives yours.</p>
 `,
   tool: 'state',
   related: ['refrigerator-electricity-use', 'dryer-electricity-use', 'window-air-conditioner-electricity-use', 'washing-machine-electricity-use'],
-  sources: ['eia_56a', 'es_fridge', 'es_freezer'],
+  sources: ['eia_56a', 'es_fridge', 'es_freezer', 'eia_steo'],
 });
