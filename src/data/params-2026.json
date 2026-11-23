@@ -12,7 +12,14 @@
     "dishCyclesC1": 215,
     "dishCyclesC2": 184
   },
+  "steo": {
+    "_about": "EIA Short-Term Energy Outlook of November 2026 (released 2026-11-10), table Electricity, Coal and Renewables, residential electricity price, U.S. annual average: 2026 estimate and 2027 forecast. A forecast, not a measured price.",
+    "release": "2026-11-10",
+    "us2026": 18.2,
+    "us2027": 18.7
+  },
   "sources": {
+    "eia_steo": { "url": "https://www.eia.gov/outlooks/steo/report/elec_coal_renew.php", "label": { "en": "U.S. Energy Information Administration, Short-Term Energy Outlook, November 2026: electricity, coal and renewables (residential price forecast for 2027)" } },
     "es_fridge": { "url": "https://data.energystar.gov/d/p5st-her9", "label": { "en": "ENERGY STAR (EPA), Certified Residential Refrigerators: height, width, capacity and annual kWh of every certified model" } },
     "es_washer": { "url": "https://data.energystar.gov/d/bghd-e2wd", "label": { "en": "ENERGY STAR (EPA), Certified Residential Clothes Washers: dimensions, capacity, annual kWh and water" } },
     "es_dryer": { "url": "https://data.energystar.gov/d/t9u7-4d2j", "label": { "en": "ENERGY STAR (EPA), Certified Residential Clothes Dryers: dimensions, drum capacity and estimated annual kWh" } },

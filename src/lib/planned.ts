@@ -7,6 +7,6 @@ export const PLANNED_GUIDES = [
   'washer-and-dryer-dimensions', 'stackable-washer-and-dryer-dimensions', 'front-load-washer-dimensions', 'top-load-washer-dimensions',
   'dryer-dimensions', 'washing-machine-electricity-use', 'dryer-electricity-use',
   'dishwasher-dimensions', '24-inch-dishwasher', '18-inch-dishwasher', 'dishwasher-electricity-use',
-  'window-air-conditioner-electricity-use', 'dehumidifier-electricity-use', 'freezer-electricity-use', 'electricity-cost-by-state',
+  'window-air-conditioner-electricity-use', 'dehumidifier-electricity-use', 'freezer-electricity-use', 'electricity-cost-by-state', 'appliance-electricity-cost-2027',
 ];
 export const PLANNED_IDS = new Set<string>(PLANNED_GUIDES);
