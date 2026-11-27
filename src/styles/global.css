@@ -4,7 +4,7 @@
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('/fonts/inter-var.woff2') format('woff2'); }
 @theme {
   --color-navy-50: #f8fafc; --color-navy-100: #f1f5f9; --color-navy-200: #e2e8f0; --color-navy-300: #cbd5e1; --color-navy-400: #94a3b8; --color-navy-500: #64748b; --color-navy-600: #475569; --color-navy-700: #334155; --color-navy-800: #1e293b; --color-navy-900: #0f172a; --color-navy-950: #020617;
-  --color-accent-50: #f0faf7; --color-accent-100: #dcf4ec; --color-accent-200: #bae8d9; --color-accent-300: #8cd9c0; --color-accent-400: #5ecaa6; --color-accent-500: #1E5B47; --color-accent-600: #194d3c; --color-accent-700: #154032; --color-accent-800: #113328; --color-accent-900: #0d281f;
+  --color-accent-50: #F0F3F6; --color-accent-100: #E2E6EC; --color-accent-200: #B6C1D0; --color-accent-300: #788EA8; --color-accent-400: #3B5A81; --color-accent-500: #0A3161; --color-accent-600: #0A3161; --color-accent-700: #072346; --color-accent-800: #061A33; --color-accent-900: #061A33;
   --color-success: #15803d; --color-warning: #b45309; --color-error: #dc2626;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -137,3 +137,88 @@ p[id$="-help"]:not([role="status"]), [data-fixe], [data-actuellement], [aria-liv
 :where(form, div, fieldset):has(> .grid-rows-subgrid) { align-content: start; }
 /* Dans une grille, le cadre du formulaire s'arrête sous ses champs au lieu de s'étirer à la hauteur du résultat. */
 .grid > form:has(> .grid-rows-subgrid) { align-self: start; }
+
+/* === Charte de page v3 (refonte identité du 2026-11-25, validée par l'éditeur) : en-tête plein, bandeau héros, simulateur en carte blanche, sections alternées, boutons pleins, chiffres-résultats, pied sombre. === */
+:root { --charte-forte: #0A3161; --charte-seconde: #B31942; --charte-sombre: #061A33; }
+html, body { overflow-x: clip; }
+/* typographie : titres en serif, chiffres tabulaires */
+main h1, main h2, main .fold-h { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; }
+main [aria-live], main table { font-variant-numeric: tabular-nums; }
+/* en-tete plein, filet de la 2e couleur */
+header nav[aria-label] { background: var(--charte-forte) !important; border-bottom: 5px solid var(--charte-seconde) !important; backdrop-filter: none !important; }
+header nav[aria-label] > div:first-child, header nav[aria-label] > div:first-child :is(a, button, span) { color: #FFFFFF !important; }
+header nav[aria-label] > div:first-child a:hover, header nav[aria-label] .nav-dropdown-trigger:hover { background: rgba(255,255,255,.14) !important; }
+header nav[aria-label] > div:first-child :is(a, button)[class*="border"] { border-color: rgba(255,255,255,.7) !important; background: transparent !important; }
+header nav[aria-label] .nav-dropdown-panel { background: #FFFFFF !important; }
+header nav[aria-label] .nav-dropdown-panel * { color: #0F172A !important; }
+#mobile-menu { background: #FFFFFF !important; }
+#mobile-menu, #mobile-menu :is(a, span, button, p) { color: #0F172A !important; }
+header nav[aria-label] img { background: #FFFFFF; border-radius: 7px; padding: 2px; }
+/* bandeau heros : aplat fort pleine largeur, barre de la 2e couleur au-dessus du H1 */
+main > div.max-w-6xl > header:has(h1), main > div.max-w-6xl > header:has(h1) + nav[data-profils] { background: var(--charte-forte) !important; box-shadow: 0 0 0 100vmax var(--charte-forte); clip-path: inset(0 -100vmax); margin: 0 0 -1px !important; border: 0 !important; }
+main > div.max-w-6xl > header:has(h1) { padding: 1rem 0 1rem !important; }
+main > div.max-w-6xl > header:has(h1) + nav[data-profils] { padding: 0 0 1.6rem !important; }
+main > div.max-w-6xl:has(> header > h1) { padding-top: 0 !important; }
+main > div.max-w-6xl > header:has(h1) h1::before { content: ""; display: block; width: 72px; height: 5px; border-radius: 3px; background: var(--charte-seconde); margin-bottom: .55rem; }
+main > div.max-w-6xl > header:has(h1) h1 { letter-spacing: -0.02em; line-height: 1.12; }
+main > div.max-w-6xl > header:has(h1), main > div.max-w-6xl > header:has(h1) :not(svg, svg *), main > div.max-w-6xl > header:has(h1) + nav[data-profils] > p { color: #FFFFFF !important; }
+main > div.max-w-6xl > header:has(h1) a { text-decoration: underline; text-decoration-color: var(--charte-seconde); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+main > div.max-w-6xl > header:has(h1) :is(span, p)[class*="rounded-full"] { background: var(--charte-sombre) !important; border-color: var(--charte-sombre) !important; }
+/* raccourcis poses sur le bandeau : tuiles blanches, bord gauche de la 2e couleur */
+main nav[data-profils] a { background: #FFFFFF !important; color: var(--charte-sombre) !important; border: 0 !important; border-left: 6px solid var(--charte-seconde) !important; border-radius: 10px !important; font-weight: 600 !important; }
+main nav[data-profils] a * { color: inherit !important; }
+main nav[data-profils] a:hover { background: #EEF1F6 !important; }
+/* le bandeau continue derriere le haut du simulateur */
+main > div.max-w-6xl > :is(header:has(h1), nav[data-profils]):has(+ [data-outil]) { padding-bottom: 4.2rem !important; }
+main > div.max-w-6xl > :is(header:has(h1), nav[data-profils]) + [data-outil] { margin-top: -3.6rem !important; position: relative; }
+main > div.max-w-6xl > header:has(h1):has(~ astro-island:first-of-type > .rechner) { padding-bottom: 4.2rem !important; }
+main > div.max-w-6xl > header:has(h1) ~ astro-island:first-of-type > .rechner { margin-top: -3.6rem; position: relative; }
+/* simulateur : carte blanche, bord haut epais de la 2e couleur */
+main :is([data-outil] astro-island > div[class*="rounded"]:first-child, astro-island > .rechner) { background: #FFFFFF !important; border: 1px solid #C9D1DC !important; border-top: 6px solid var(--charte-seconde) !important; border-radius: 16px !important; box-shadow: none !important; }
+main :is([data-outil], .rechner) label, main :is([data-outil], .rechner) [id$="-l"] { color: var(--charte-sombre) !important; font-weight: 600 !important; }
+main :is([data-outil], .rechner) :is(input, select, [data-choix]) { border-color: #9AA8BA !important; }
+main :is([data-outil], .rechner) button[aria-pressed="true"] { background: var(--charte-seconde) !important; color: #FFFFFF !important; }
+main :is([data-outil], .rechner) button[aria-pressed="false"] { background: #FFFFFF !important; color: var(--charte-sombre) !important; }
+main :is(button[type="submit"], :is(a,button):is([class~="bg-accent-500"],[class~="bg-accent-600"],[class~="bg-accent-700"])) { background: var(--charte-seconde) !important; color: #FFFFFF !important; border-color: var(--charte-seconde) !important; }
+/* resultat : panneau teinte, barre de la 2e couleur, grand chiffre dans la 2e couleur */
+main :is([data-resultat], [data-resultat] > div[class*="rounded"]) { background: #EEF1F6 !important; border-color: #DCE3EE !important; }
+main [data-resultat] { border-left: 6px solid var(--charte-seconde) !important; border-radius: 14px !important; }
+main [data-resultat] > div[class*="rounded"] { border: 0 !important; box-shadow: none !important; }
+main [data-resultat] :is([class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"], [class*="text-[2"], [class*="text-[3"]):not(h1, h2) { color: var(--charte-seconde) !important; font-size: clamp(2.6rem, 7vw, 3.4rem) !important; line-height: 1.05 !important; letter-spacing: -0.02em; font-family: 'Source Serif 4', Georgia, serif; }
+main [data-resultat] :is([class*="text-navy-400"], [class*="text-navy-500"], [class*="text-navy-600"]) { color: #3B4A5E !important; }
+main [data-resultat] table :is(td, th) { border-color: #DCE3EE !important; }
+/* sections alternees : blanc / teinte franche */
+main > div.max-w-6xl > :is(section, div.clamp, div.mt-8, section.prose):nth-of-type(odd) { background: #EEF1F6; box-shadow: 0 0 0 100vmax #EEF1F6; clip-path: inset(0 -100vmax); padding-top: 1.6rem; padding-bottom: 1.6rem; }
+main > div.max-w-6xl > section.prose { padding-top: 1.6rem; }
+main > div.max-w-6xl > section.prose > h2 { margin-top: 2.6rem; }
+/* titres de section : couleur forte, pastille de la 2e couleur */
+main h2:not(footer h2) { color: var(--charte-forte) !important; letter-spacing: -0.01em; }
+main :is(section, .prose) > h2:not(.fold-h)::before { content: ""; display: block; width: 44px; height: 5px; border-radius: 3px; background: var(--charte-seconde); margin-bottom: .55rem; }
+main details.fold > summary { border-left: 6px solid var(--charte-seconde); padding-left: .7rem; }
+main details.fold[open] > summary, main details.fold > summary:hover { background: #DCE3EE; }
+main h3 { color: var(--charte-sombre); }
+/* tableaux : en-tete plein fort, texte blanc */
+main table thead th { background: var(--charte-forte) !important; color: #FFFFFF !important; border: 0 !important; }
+main table thead th * { color: #FFFFFF !important; }
+main table tbody tr:nth-child(even) > * { background: #EEF1F6; }
+main table caption { color: #3B4A5E !important; }
+/* FAQ et cartes : blanches, filet de la couleur forte */
+main #faq details { border: 1px solid #C9D1DC !important; border-left: 5px solid var(--charte-forte) !important; background: #FFFFFF !important; }
+main #faq details[open] > summary { background: #DCE3EE; }
+main a[class*="rounded-lg"][class*="border"]:has(> h3) { background: #FFFFFF !important; border: 1px solid #C9D1DC !important; border-top: 5px solid var(--charte-seconde) !important; }
+main a[class*="rounded-lg"][class*="border"]:has(> h3) h3 { color: var(--charte-forte) !important; }
+/* texte grise : fonce sur les fonds teintes */
+main :is([class*="text-navy-400"], [class*="text-navy-500"], [class*="text-navy-300"]) { color: #3B4A5E !important; }
+/* liens soulignes de la 2e couleur */
+main :is(.prose a, p > a, li > a):not([class*="bg-"], [class*="rounded"], footer *) { color: var(--charte-forte); text-decoration: underline; text-decoration-color: var(--charte-seconde); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+main .bg-accent-50:not([data-outil] *, .rechner *) { background: #EEF1F6 !important; border-left: 6px solid var(--charte-seconde); }
+main .ad-slot { border-color: #9AA8BA !important; color: #3B4A5E !important; }
+/* pied plein sombre, filet de la 2e couleur */
+footer { background: var(--charte-sombre) !important; border-top: 6px solid var(--charte-seconde) !important; }
+footer, footer *:not(svg, svg *) { color: #E5E7EB !important; border-color: rgba(255,255,255,.18) !important; }
+footer [class*="bg-"]:not(footer) { background: transparent !important; }
+footer a { text-decoration-color: var(--charte-seconde) !important; }
+/* fil d'Ariane au-dessus du bandeau (pages à propos, méthode, légales) : sur le bandeau, en blanc, sans bande blanche */
+main > div.mx-auto:has(> nav[aria-label]):has(+ div.max-w-6xl > header > h1) { background:var(--charte-forte) !important; box-shadow:0 0 0 100vmax var(--charte-forte); clip-path:inset(0 -100vmax); padding-bottom:.25rem; }
+main > div.mx-auto:has(> nav[aria-label]):has(+ div.max-w-6xl > header > h1) :is(a,span,li,ol,time,p) { color:#FFFFFF !important; }
+main > div.mx-auto:has(> nav[aria-label]):has(+ div.max-w-6xl > header > h1) + div.max-w-6xl { padding-top:0 !important; }
